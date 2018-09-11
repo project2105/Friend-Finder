@@ -16,7 +16,38 @@ var friends = [
             4,
             1
         ]
-
+    },
+    {
+        name: "Alice",
+        photo: "alice@example.com",
+        scores: [
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5
+        ]
+    },
+    {
+        name: "Dan",
+        photo: "dan@example.com",
+        scores: [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ]
     }
 ];
 

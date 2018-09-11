@@ -9,13 +9,8 @@ module.exports = function (app) {
     });
 
     app.post("/api/friends", function (req, res) {
-        // logic to compare newfriend to friends array
-        console.log(friends);
-        console.log(req.body);
         var thisUser = req.body;
         var differences = [];
-
-
         friends.forEach(function (user) {
             var totalDifference = 0;
             for (var i = 0; i < thisUser.scores.length; i++) {
@@ -24,25 +19,18 @@ module.exports = function (app) {
                 var difference = +otherAnswer - +thisAnswer;
                 totalDifference += Math.abs(difference);
             }
-
             differences.push(totalDifference);
         });
 
-        var minimumDifference = Math.min.apply(null, differences);
+        var minimumDiff = Math.min.apply(null, differences);
         var bestMatches = [];
         for (var i = 0; i < differences.length; i++) {
-            if (differences[i] === minimumDifference) {
+            if (differences[i] === minimumDiff) {
                 bestMatches.push(friends[i]);
             }
         }
 
-        // Then send bestMatches to the client.
-        res.json(bestMatches);
-        console.log('best', bestMatches);
-        console.log(bestMatches[0].name);
-
         friends.push(req.body);
-        //res.json(true);
-
+        res.json(bestMatches);
     });
 };

@@ -28,8 +28,8 @@
                 <h3>About You</h3>
                 <h4>Name (Required)</h4>
                 <input type="text" id="name" class="form-control" required="">
-                <h4>Link to Photo Image (Required)</h4>
-                <input type="text" id="photo" class="form-control" required="">
+                <h4>Link to Photo Image</h4>
+                <input type="text" id="photo" class="form-control">
                 <hr class="divider">
                 <h3>Question 1</h3>
                 <p>Your mind is always buzzing with unexplored ideas and plans.</p>
@@ -150,13 +150,15 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Best Match</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Your Best Match</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <span id="bestmatches"></span>
+                        <h4><span id="bestmatches"></span> is the most like you in your opinions, but don't forget that really
+                            anyone can be a friend.</h4>
+                        <h4>Sometimes the best friends can give you a new perspective.</h4>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -166,13 +168,13 @@
         </div>
         <footer>
             <br>
-            <p><a href="/api/friends">API Friends List</a> | <a href="/home">Home</a> | GitHub Repo</p>
+            <p><a href="/api/friends">API Friends List</a> | <a href="/home">Home</a> | <a href="https://github.com/project2105/Friend-Finder">GitHub
+                    Repo
+                </a></p>
         </footer>
     </div>
     <script src='https://code.jquery.com/jquery-3.3.1.min.js' integrity='sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8='
         crossorigin='anonymous'></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
@@ -185,23 +187,20 @@
 
     $("#submit").on("click", function (event) {
         event.preventDefault();
-        console.log(event);
         var newFriend = {
             name: $("#name").val().trim(),
             photo: $("#photo").val().trim(),
             scores: [parseInt($("#q1").val()), parseInt($("#q2").val()), parseInt($("#q3").val()), parseInt($("#q4").val()), parseInt($("#q5").val()), parseInt($("#q6").val()), parseInt($("#q7").val()), parseInt($("#q8").val()), parseInt($("#q9").val()), parseInt($("#q10").val())]
         };
 
-        console.log(newFriend);
-
         $.post("/api/friends", newFriend,
             function (data) {
-                // Clear the form when submitting
+                result = data[0].name;
+                $('#bestmatches').text(result);
                 $("#name").val("");
                 $("#photo").val("");
                 $("scores").val("")
             });
-
     });
 
 </script>
